@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new Scheme.mongoose({
+const userSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -17,12 +17,13 @@ const userSchema = new Scheme.mongoose({
         required:true
     },
     phone:{
-        type:Number,
+        type:String,
         required:true
     },
     role:{
         type:String,
-        enum:[]
+        enum:["user", "admin","mechanic"],
+        default:"user"
     },
     location: {                              
     lat: { type: Number },
