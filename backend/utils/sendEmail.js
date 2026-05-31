@@ -34,7 +34,7 @@ const emailTemplates = {
                 <h2 style="color: #e05c00;">MechanicDost 🔧</h2>
                 <p>Hi <b>${data.name || 'there'}</b>,</p>
                 <p>Your password reset link is:</p>
-                <h1 style="letter-spacing: 8px; color: #333;">${data.link}</h1>
+                <h5 style="letter-spacing: 2px; color: #333;">${data.link}</h5>
                 <p>This Link is valid for <b>10 minutes</b> only.</p>
                 <p>If you did not request this, please secure your account.</p>
                 </div>`
