@@ -25,9 +25,17 @@ const userSchema = new mongoose.Schema({
         enum:["user", "admin","mechanic"],
         default:"user"
     },
-    isVerified:{                            // ✅ this was also missing
+    isVerified:{                            
         type:Boolean,
         default:false
+    },
+    resetToken: {
+    type: String,
+    default: null
+    },
+    resetTokenExpiry: {
+    type: Date,
+    default: null
     },
     location: {                              
     lat: { type: Number },

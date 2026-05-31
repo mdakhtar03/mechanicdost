@@ -3,7 +3,7 @@ const OTP = require('../models/OTP');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sendEmail = require('../utils/sendEmail');
-
+const crypto = require('crypto');
 
 exports.register = async (req, res) => {
     
@@ -20,7 +20,7 @@ exports.register = async (req, res) => {
             })
         }
         
-        //! Hash password Not Done yet
+
 
         //create User
         const user = await User.create({
@@ -170,5 +170,73 @@ exports.getMe = async (req,res) =>{
             success:false,
             message: "Error fetching user details"
         });
+    }
+}
+
+//forgot password
+exports.forgotPassword = async(req,res) =>{
+    try{
+        const {email} = req.body;
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(400).json({
+                success:false,
+                message: "User not found",
+            })
+        }
+        if(!user.isVerified){
+            return res.status(403).json({
+                success: false,
+                message: "Please verify your email before resetting password."
+            })
+        }
+
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        const resetTokenExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+        await User.findByIdAndUpdate(user._id, {resetToken, resetTokenExpiry}, {new:true});
+
+        const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}&email=${email}`;
+        await sendEmail({email,type:'reset',link:resetLink, name: user.name});
+
+        res.status(200).json({
+            success:true,
+            message: "Password reset link sent to your email"
+        })
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message: "Error occurred while sending reset link",
+            error: err.message
+        })
+    }
+}
+
+//reset password
+
+exports.resetPassword = async(req,res)=>{
+    try{
+        const {email,token, password} = req.body;
+        const user = await User.findOne({email, resetToken: token, resetTokenExpiry:{$gt: new Date()}}); // find user with matching email and valid reset token
+        if(!user){
+            return res.status(400).json({
+                success:false,
+                message: "Invalid or expired reset token",
+            })
+        }
+        user.password = password; // this will trigger the pre-save hook to hash the password
+        user.resetToken = null;
+        user.resetTokenExpiry = null;
+        await user.save();
+        res.status(200).json({
+            success:true,
+            message: "Password reset successful. You can now login with your new password."
+        }) 
+    } catch(err){
+        res.status(500).json({
+            success:false,
+            message: "Error occurred while resetting password",
+            error: err.message
+        })
     }
 }

@@ -15,18 +15,6 @@ const emailTemplates = {
             </div>`
     }),
 
-    reset: (data) => ({
-        subject: "MechanicDost — Password Reset OTP",
-        html: `
-            <div style="font-family: Arial, sans-serif; padding: 20px;">
-                <h2 style="color: #e05c00;">MechanicDost 🔧</h2>
-                <p>Hi <b>${data.name || 'there'}</b>,</p>
-                <p>Your password reset OTP is:</p>
-                <h1 style="letter-spacing: 8px; color: #333;">${data.otp}</h1>
-                <p>This OTP is valid for <b>5 minutes</b> only.</p>
-                <p>If you did not request this, please secure your account.</p>
-            </div>`
-    }),
 
     welcome: (data) => ({
         subject: "Welcome to MechanicDost!",
@@ -38,6 +26,18 @@ const emailTemplates = {
                 <p>You can now login and use MechanicDost.</p>
                 <p style="color: #e05c00; font-weight: bold;">Gaadi band? Dost ko bulao! 🏍️</p>
             </div>`
+    }),
+
+    reset: data=>({
+        subject: "MechanicDost — Password Reset Link",
+        html:  `<div style="font-family: Arial, sans-serif; padding: 20px;">
+                <h2 style="color: #e05c00;">MechanicDost 🔧</h2>
+                <p>Hi <b>${data.name || 'there'}</b>,</p>
+                <p>Your password reset link is:</p>
+                <h1 style="letter-spacing: 8px; color: #333;">${data.link}</h1>
+                <p>This Link is valid for <b>10 minutes</b> only.</p>
+                <p>If you did not request this, please secure your account.</p>
+                </div>`
     })
 
 }
