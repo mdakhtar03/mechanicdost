@@ -155,3 +155,20 @@ exports.login = async (req,res) =>{
         })
     }
 }
+
+
+//getme function to get user details from token
+exports.getMe = async (req,res) =>{
+    try{
+        const user = await User.findById(req.user.userId).select('-password');
+        res.status(200).json({
+            success:true,
+            user
+        });
+    } catch (error) {
+        res.status(500).json({
+            success:false,
+            message: "Error fetching user details"
+        });
+    }
+}
