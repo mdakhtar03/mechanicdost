@@ -40,14 +40,9 @@ const userSchema = new mongoose.Schema({
 
 
 // Hash password before saving
-userSchema.pre('save',async function(next){
-    if(!this.isModified('password') && !this.isNew){return next();}
-    try{
-        this.password = await bcrypt.hash(this.password,10);
-        next();
-    } catch(err){
-        next(err);
-    }
+userSchema.pre('save', async function() {    // ✅ remove next parameter entirely
+    if(!this.isModified('password') && !this.isNew) return
+    this.password = await bcrypt.hash(this.password, 10)
 })
 
 const User = mongoose.model('User', userSchema);
