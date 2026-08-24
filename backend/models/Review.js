@@ -13,11 +13,15 @@ const reviewSchema = new mongoose.Schema({
     mechanicId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Mechanic',required:true},
+    shopId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Shop'
+    },
     rating:{
         type:Number,
         min:1,
         max:5,
-        required:true,},
+        required:true},
     comment:{
         type:String,
         trim:true,

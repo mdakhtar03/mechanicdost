@@ -10,6 +10,11 @@ const requestSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Mechanic',
     },
+    shopId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Shop',
+    },
+    
     vehicleType:{
         type:String,
         enum:['car','bike','truck','other'],
