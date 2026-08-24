@@ -12,7 +12,7 @@ const requestSchema = new mongoose.Schema({
     },
     vehicleType:{
         type:String,
-        enum:['car','bike','truck'],
+        enum:['car','bike','truck','other'],
         required:true,
     },
     issueDescription:{

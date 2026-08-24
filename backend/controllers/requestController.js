@@ -52,13 +52,13 @@ exports.getUserRequests = async (req,res)=>{
     try{
         const userId = req.user.userId;
         const requests = await Request.find({userId}).sort({createdAt:-1});
-        res.status(200).json({
+        return res.status(200).json({
             success:true,
             count: requests.length,
             requests
         })
     }catch(err){
-        res.status(500).json({
+        return res.status(500).json({
             success:false,
             message: "Error occurred while fetching requests",
             error: err.message

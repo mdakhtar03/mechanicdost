@@ -79,7 +79,7 @@ exports.verifyOTP = async (req,res)=>{
         if(!otpEntry){
             return res.status(400).json({
                 success:false,
-                message: "Invalid OTP",
+                message: "Invalid or expired OTP",
             })
         }
 
@@ -134,7 +134,7 @@ exports.login = async (req,res) =>{
         
         //generate JWT token
         const token = jwt.sign({userId:user._id, role: user.role, email: user.email}, process.env.JWT_SECRET, {expiresIn: '1d'});
-        res.status(200).json({
+        return res.status(200).json({
             success:true,
             message: "Login successful",
             token,

@@ -5,6 +5,11 @@ const mechanicSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',required:true 
         },
+        shopId:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Shop',
+            required: true
+        },
         specialization: {
         type: String,
         enum: ['car', "bike", "truck", "all"],

@@ -28,7 +28,7 @@ const emailTemplates = {
             </div>`
     }),
 
-    reset: data=>({
+    reset: (data)=>({
         subject: "MechanicDost — Password Reset Link",
         html:  `<div style="font-family: Arial, sans-serif; padding: 20px;">
                 <h2 style="color: #e05c00;">MechanicDost 🔧</h2>
@@ -38,7 +38,20 @@ const emailTemplates = {
                 <p>This Link is valid for <b>10 minutes</b> only.</p>
                 <p>If you did not request this, please secure your account.</p>
                 </div>`
-    })
+    }),
+    jobComplete: (data) => ({
+    subject: "MechanicDost — Job Completion OTP",
+    html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2 style="color: #e05c00;">MechanicDost 🔧</h2>
+            <p>Hi <b>${data.name || 'there'}</b>,</p>
+            <p>Your mechanic has marked the job as complete.</p>
+            <p>Share this OTP with your mechanic to confirm:</p>
+            <h1 style="letter-spacing: 8px; color: #333;">${data.otp}</h1>
+            <p>This OTP is valid for <b>10 minutes</b> only.</p>
+            <p>Do NOT share this OTP if your issue is not resolved.</p>
+        </div>`
+})
 
 }
 

@@ -3,7 +3,7 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const authRoutes = require('./routes/authRoutes');
 const requestRoutes = require('./routes/requestRoutes');
-
+const mechanicRoutes = require('./routes/mechanicRoutes');
 
 
 
@@ -17,7 +17,7 @@ connectDB();
 //routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/requests', requestRoutes);
-
+app.use('/api/v1/mechanics', mechanicRoutes);
 app.get('/',(req,res)=>{
 res.send('MechanicDost backend running!')
 })
