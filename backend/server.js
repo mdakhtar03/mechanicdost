@@ -4,7 +4,7 @@ const connectDB = require("./config/db");
 const authRoutes = require('./routes/authRoutes');
 const requestRoutes = require('./routes/requestRoutes');
 const mechanicRoutes = require('./routes/mechanicRoutes');
-
+const shopRoutes = require('./routes/shopRoutes');
 
 
 const app = express();
@@ -18,6 +18,7 @@ connectDB();
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/requests', requestRoutes);
 app.use('/api/v1/mechanics', mechanicRoutes);
+app.use('/api/v1/shop',shopRoutes);
 app.get('/',(req,res)=>{
 res.send('MechanicDost backend running!')
 })
