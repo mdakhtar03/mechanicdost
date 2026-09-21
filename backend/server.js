@@ -5,7 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const requestRoutes = require('./routes/requestRoutes');
 const mechanicRoutes = require('./routes/mechanicRoutes');
 const shopRoutes = require('./routes/shopRoutes');
-
+const reviewRoutes = require('./routes/reviewRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,6 +19,8 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/requests', requestRoutes);
 app.use('/api/v1/mechanics', mechanicRoutes);
 app.use('/api/v1/shop',shopRoutes);
+app.use('/api/v1/reviews',reviewRoutes);
+
 app.get('/',(req,res)=>{
 res.send('MechanicDost backend running!')
 })

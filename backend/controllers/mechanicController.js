@@ -89,6 +89,7 @@ exports.acceptRequest = async (req,res) =>{
             //update request with mechanicId and change status to accepted
             request.mechanicId = mechanic._id;
             request.status = 'accepted';
+            request.shopId = mechanic.shopId;
             await request.save();
 
             mechanic.isAvailable = false;
