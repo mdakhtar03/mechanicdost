@@ -11,6 +11,15 @@ exports.register = async (req, res) => {
         //get data from request body
         const {name, email, password,phone,role} = req.body;
 
+        //Check if it is platformAdmin registration attempt
+
+        if(role === 'platformAdmin'){
+            return res.status(403).json({
+                success: false,
+                message: "Cannot register as platform admin"
+            })
+        }
+
         //check if user already exists
         const exitingUser  = await User.findOne({email});
         if(exitingUser){
@@ -121,6 +130,13 @@ exports.login = async (req,res) =>{
                 success: false,
                 message: "Please verify your email before logging in."
             })
+        }
+
+        if(user.isBlocked) {
+            return res.status(403).json({
+                success: false,
+                message: "Your account has been blocked. Please contact support for assistance."
+            });
         }
 
         //check if password is correct

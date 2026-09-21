@@ -2,11 +2,11 @@ const router = require('express').Router();
 const { createShop,getMyShop,updateShop, getShopMechanics, verifyMechanic } = require('../controllers/shopController');
 const { authMiddleware } = require('../middleware/authMiddleware');
 
-const { authMiddlewareAdmin } = require('../middleware/roleMiddleware');
+const { authMiddlewareShopOwner } = require('../middleware/roleMiddleware');
 
-router.post('/create', authMiddleware, authMiddlewareAdmin, createShop);
-router.get('/myshop', authMiddleware, authMiddlewareAdmin, getMyShop);
-router.patch('/update', authMiddleware, authMiddlewareAdmin, updateShop);
-router.get('/mechanics', authMiddleware, getShopMechanics);
-router.patch('/verify/:mechanicId', authMiddleware, authMiddlewareAdmin, verifyMechanic);
+router.post('/create', authMiddleware, authMiddlewareShopOwner, createShop);
+router.get('/myshop', authMiddleware, authMiddlewareShopOwner, getMyShop);
+router.patch('/update', authMiddleware, authMiddlewareShopOwner, updateShop);
+router.get('/mechanics', authMiddleware, authMiddlewareShopOwner, getShopMechanics);
+router.patch('/verify/:mechanicId', authMiddleware, authMiddlewareShopOwner, verifyMechanic);
 module.exports = router;

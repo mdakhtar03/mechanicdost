@@ -1,8 +1,8 @@
-exports.authMiddlewareAdmin = (req,res,next)=>{
-    if(req.user.role !== 'admin'){
+exports.authMiddlewareShopOwner = (req,res,next)=>{
+    if(req.user.role !== 'shopOwner'){
         return res.status(403).json({
             success:false,
-            message: "Forbidden: Admins only"
+            message: "Forbidden: Shop Owners only"
         })
      }
         next();
@@ -28,4 +28,14 @@ exports.authMiddlewareUser = (req,res,next)=>{
         })
     }
     next();
+}
+
+exports.authMiddlewarePlatformAdmin = (req, res, next) => {
+    if(req.user.role !== 'platformAdmin'){
+        return res.status(403).json({
+            success: false,
+            message: "Forbidden: Platform Admin only"
+        })
+    }
+    next()
 }

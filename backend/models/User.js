@@ -22,10 +22,14 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         type:String,
-        enum:["user", "admin","mechanic"],
+        enum:["user", "shopOwner","mechanic", "platformAdmin"],
         default:"user"
     },
     isVerified:{                            
+        type:Boolean,
+        default:false
+    },
+    isBlocked:{
         type:Boolean,
         default:false
     },
