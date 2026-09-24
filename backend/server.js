@@ -6,6 +6,7 @@ const requestRoutes = require('./routes/requestRoutes');
 const mechanicRoutes = require('./routes/mechanicRoutes');
 const shopRoutes = require('./routes/shopRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const socketHandler = require('./socket/socketHandler');
 const { Server } = require('socket.io');
 const http = require('http');
@@ -22,7 +23,7 @@ app.use('/api/v1/requests', requestRoutes);
 app.use('/api/v1/mechanics', mechanicRoutes);
 app.use('/api/v1/shop',shopRoutes);
 app.use('/api/v1/reviews',reviewRoutes);
-
+app.use('/api/v1/admin',adminRoutes);
 app.get('/',(req,res)=>{
 res.send('MechanicDost backend running!')
 })
