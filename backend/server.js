@@ -8,11 +8,16 @@ const shopRoutes = require('./routes/shopRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const socketHandler = require('./socket/socketHandler');
+const cors = require('cors');
 const { Server } = require('socket.io');
 const http = require('http');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(cors({
+      origin: 'http://localhost:5173',
+      credentials: true,
+}))
 
 app.use(express.json());
 connectDB();

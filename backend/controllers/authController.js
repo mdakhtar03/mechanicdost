@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
+const { cloudinary } = require('../config/cloudinary');
 
 exports.register = async (req, res) => {
     
@@ -37,7 +38,10 @@ exports.register = async (req, res) => {
             email,
             password,
             phone,
-            role
+            role,
+            profilePic:{
+                url: `https://api.dicebear.com/9.x/initials/svg?seed=${name.split(' ')[0]} ${name.split(' ')[1]}`
+            }
         })
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -69,6 +73,48 @@ exports.register = async (req, res) => {
         })
     }
 } 
+
+
+//Upload Profile Pic 
+exports.uploadProfilePic = async (req, res) => {
+    try {
+        const userId = req.user.userId
+
+        if(!req.file){
+            return res.status(400).json({
+                success: false,
+                message: "No file uploaded"
+            })
+        }
+
+        const user = await User.findById(userId)
+
+        // delete old pic from cloudinary if exists
+        if(user.profilePic.publicId){
+            await cloudinary.uploader.destroy(user.profilePic.publicId)
+        }
+
+        // update user with new pic
+        user.profilePic = {
+            url: req.file.path,
+            publicId: req.file.filename
+        }
+        await user.save()
+
+        res.status(200).json({
+            success: true,
+            message: "Profile picture updated successfully",
+            profilePic: user.profilePic.url
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Error uploading profile picture",
+            error: err.message
+        })
+    }
+}
 
 
 exports.verifyOTP = async (req,res)=>{

@@ -30,3 +30,5 @@ router.put('/users/:userId/unblock', authMiddleware, authMiddlewarePlatformAdmin
 
 // Get dashboard stats
 router.get('/stats', authMiddleware, authMiddlewarePlatformAdmin, getDashboardStats);
+
+module.exports = router;

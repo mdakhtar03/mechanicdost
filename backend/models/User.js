@@ -45,7 +45,10 @@ const userSchema = new mongoose.Schema({
     lat: { type: Number },
     lng: { type: Number }
   },
-    
+    profilePic: {
+    url: { type: String, default: null },
+    publicId: { type: String, default: null }  // needed to delete old pic
+}
    
 
 }, { timestamps: true }) 
